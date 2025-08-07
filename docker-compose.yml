@@ -1,0 +1,40 @@
+services:
+  flask:
+    container_name: play-llm-flask-bkend
+    build: 
+      context: ./
+    command: python ./app.py
+    volumes:
+      - ./:/usr/src/app/
+    ports:
+      - "5008:5008"
+    env_file:
+      - ${ENV_FILE:-.env}
+    # environment:
+    #   - DB_HOST=${DB_HOST}
+    #   - DB_USER=${DB_USER}
+    #   - DB_PWD=${DB_PWD}
+    #   - DB_NAME=${DB_NAME}
+    #   - DB_PORT=${DB_PORT}
+    #   - KAFKA_BROKER_IP=${KAFKA_BROKER_IP}
+    #   - KAFKA_BROKER_PORT=${KAFKA_BROKER_PORT}
+    #   - CELERY_REDIS_IP=${CELERY_REDIS_IP}
+    #   - CELERY_REDIS_PORT=${CELERY_REDIS_PORT}
+    #   - OLLAMA_SERVER_IP=${OLLAMA_SERVER_IP}
+    #   - OLLAMA_SERVER_PORT=${OLLAMA_SERVER_PORT}
+
+  # celery:
+  #   container_name: celery
+  #   build:
+  #     context: ./
+  #   command: celery -A anyang_flask.tasks worker --loglevel INFO
+  #   volumes:
+  #     - ./:/usr/src/app/
+  #   env_file:
+  #     - ${ENV_FILE:-.env}
+  #   environment:
+  #     - PYTHONPATH=/usr/src/app/anyang-flask:/usr/src/app
+  #     - CELERY_REDIS_IP=${CELERY_REDIS_IP}
+  #     - CELERY_REDIS_PORT=${CELERY_REDIS_PORT}
+  #   depends_on:
+  #     - flask
